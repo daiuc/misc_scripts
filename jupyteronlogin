@@ -1,0 +1,17 @@
+#!/bin/zsh
+#
+cd ~ && source ~/.zshrc 
+conda activate smk
+
+PORT=9921
+#IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
+IP="127.0.0.1"
+# launch jupyter notebook
+echo "Launch jupyter on midway2-login1 at $(date)" 
+echo "jupyter server runing on http://${IP}:${PORT}/lab" 
+echo "jupyter server runing on http://${IP}:${PORT}/lab" 
+
+
+jupyter lab --ip=$IP --port=$PORT
+
+
