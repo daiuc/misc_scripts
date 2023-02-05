@@ -81,7 +81,8 @@ RSTUDIO_SERVER_USER=chaodai # change to your own
 
 ## run container app
 sleep 5 
-PASSWORD='biology' singularity exec \
+# make sure RSTUDIO_PASS is exported in your bash profile
+PASSWORD=${RSTUDIO_PASS} singularity exec \
     --bind $RSTUDIO_TMP/var/lib:/var/lib/rstudio-server \
     --bind $RSTUDIO_TMP/var/run:/var/run/rstudio-server \
     --bind $RSTUDIO_TMP/tmp:/tmp \
