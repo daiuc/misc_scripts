@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+echo "use this format: portforward {midway2/3} {localport}:{remoteIP}:{remotePort}"
+
+midway=$1
+address=$2
+
+
+if [[ ${midway} =~ .*2.* ]]; then
+    echo "tunneling midway2"
+    sshhost="chaodai@midway2.rcc.uchicago.edu"
+
+    echo ssh -N  -L ${address} ${sshhost}
+    ssh -N  -L ${address} ${sshhost}
+elif [[ ${midway} =~ .*3.* ]]; then
+    echo "tunneling midway3"
+    sshhost="chaodai@midway3.rcc.uchicago.edu"
+
+    echo ssh -N  -L ${address} ${sshhost}
+    ssh -N  -L ${address} ${sshhost}
+else
+    echo "check your command"
+fi
+
