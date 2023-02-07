@@ -79,12 +79,15 @@ export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
 export SINGULARITYENV_PATH="/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin"
 export SINGULARITYENV_CACHEDIR="/scratch/midway2/chaodai/singularity/singularity_cache"
 export SINGULARITYENV_RSTUDIO_PASS=$RSTUDIO_PASS
+export SINGULARITYENV_MODULES_CMD=/software/modules/libexec/modulecmd.tcl
+export SINGULARITYENV_MODULEPATH=/software/modules/modulefiles:/software/modulefiles2
+
 
 RSTUDIO_SERVER_USER=chaodai # change to your own
 
 ## run container app
 sleep 5 
-# make sure RSTUDIO_PASS is exported in your bash profile
+# make sure MY_PASS is exported in your bash profile
 PASSWORD=${MY_PASS} singularity exec \
     --bind $RSTUDIO_TMP/var/lib:/var/lib/rstudio-server \
     --bind $RSTUDIO_TMP/var/run:/var/run/rstudio-server \
@@ -95,6 +98,7 @@ PASSWORD=${MY_PASS} singularity exec \
     --bind /project2/yangili1:/project2/yangili1 \
     --bind /project2/jstaley:/project2/jstaley \
     --bind /scratch/midway2/chaodai:/scratch/midway2/chaodai \
+    --bind /software:/software \
     $SIF \
     rserver --server-user $RSTUDIO_SERVER_USER \
         --rsession-which-r=${R_BIN} \
