@@ -1,0 +1,37 @@
+
+# SBATCH stuff
+CPU: 6
+MEM: "30g"
+PARTITION: "broadwl"
+JOBNAME: "rstudio"
+ACCT: "pi-jstaley"
+TIME: "35:59:00"
+LOGFILE: 'logs/sbatchLogRstudioContainer.log' # path to your log file
+
+
+# Local stuff
+JPORT: 9798 # jupyter port
+RPORT: 8282 # Rstudio port
+
+
+CONDAENV: 'smk' # path to your conda env that has R and python, jupyter
+CONDA_PREFIX: '/scratch/midway2/chaodai/miniconda3/envs/smk'
+
+# Configure singularity
+
+SIF: "/scratch/midway2/chaodai/singularity/bajiame_rstudio_rstudio_2022_12.sif"
+
+## Export environment to container
+
+SINGULARITYENV_USER: 'chaodai' # your home user
+SINGULARITYENV_PATH: "/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin" # export your path
+SINGULARITYENV_CACHEDIR: "/scratch/midway2/chaodai/singularity/singularity_cache"
+SINGULARITYENV_MODULES_CMD: "/software/modules/libexec/modulecmd.tcl" # optional
+SINGULARITYENV_MODULEPATH: "/software/modules/modulefiles:/software/modulefiles2" # optional
+
+## Rstudio in singularity
+RSTUDIO_SERVER_USER: 'chaodai' # rstudio user, should be the same home user
+RSTUDIO_TMP: "/scratch/midway2/chaodai/singularity/rstudio-tmp"
+CUSTOM_BIND: " --bind /home/chaodai:/home/rstudio --bind /project2/yangili1:/project2/yangili1 --bind /project2/jstaley:/project2/jstaley --bind /scratch/midway2/chaodai:/scratch/midway2/chaodai --bind /software:/software " # use 1 line
+COOKIE_KEY: "/home/chaodai/rstudio-server/secure-cookie-key"
+PASSWORD_VARIABLE: 'MY_PASS' # environment variable that stores rstudio password
