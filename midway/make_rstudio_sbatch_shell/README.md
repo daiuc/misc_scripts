@@ -95,14 +95,21 @@ Note jupyter server is run directly on the compute node, while Rstudio server is
 You need to:
 
 -   carefully modify the yaml file `rstudio_sbatch.yml`. Make sure you don't use the same ports I used. Don't remove any variables from yaml file without removing them also from the template.
--   run the python script ```./rstudio_script_gen.py --YAML rstudio_sbatch.yml --TEMP rstudio_sbatch_template.sh --OUT yoursbatchscript.sh```
+
+-   run the python script 
+```
+./rstudio_script_gen.py --YAML rstudio_sbatch.yml --TEMP rstudio_sbatch_template.sh --OUT yoursbatchscript.sh
+```
+
 -   if you don't want to use the explicit password in the output script. You change it to an environment variable that stores your rstudio password.
 
 ## Set up your jupyter and rstudio servers
 
 This is simple...
 
-```sbatch yoursbatchscript.sh```
+```
+sbatch yoursbatchscript.sh
+```
 
 Remember we have time limits on compute nodes. So the maximum your sever will run is set at about 36h in my script.
 
