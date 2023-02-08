@@ -101,7 +101,8 @@ You need to:
 ## Set up your jupyter and rstudio servers
 
 This is simple...
-`sbatch yoursbatchscript.sh`
+
+```sbatch yoursbatchscript.sh```
 
 Remember we have time limits on compute nodes. So the maximum your sever will run is set at about 36h in my script.
 
