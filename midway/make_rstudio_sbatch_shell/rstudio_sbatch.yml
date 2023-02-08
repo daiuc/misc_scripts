@@ -1,10 +1,10 @@
 
 # SBATCH stuff
-CPU: 6
-MEM: "30g"
+CPU: 2
+MEM: "20g"
 PARTITION: "broadwl"
 JOBNAME: "rstudio"
-ACCT: "pi-jstaley"
+ACCT: "pi-yangili1"
 TIME: "35:59:00"
 LOGFILE: 'logs/sbatchLogRstudioContainer.log' # path to your log file
 
@@ -20,7 +20,7 @@ CONDA_PREFIX: '/scratch/midway2/chaodai/miniconda3/envs/smk'
 # Configure singularity
 
 SIF: "/scratch/midway2/chaodai/singularity/bajiame_rstudio_rstudio_2022_12.sif"
-
+SINGULARITY_VER: 'singularity/3.4.0'
 ## Export environment to container
 
 SINGULARITYENV_USER: 'chaodai' # your home user
@@ -33,5 +33,6 @@ SINGULARITYENV_MODULEPATH: "/software/modules/modulefiles:/software/modulefiles2
 RSTUDIO_SERVER_USER: 'chaodai' # rstudio user, should be the same home user
 RSTUDIO_TMP: "/scratch/midway2/chaodai/singularity/rstudio-tmp"
 CUSTOM_BIND: " --bind /home/chaodai:/home/rstudio --bind /project2/yangili1:/project2/yangili1 --bind /project2/jstaley:/project2/jstaley --bind /scratch/midway2/chaodai:/scratch/midway2/chaodai --bind /software:/software " # use 1 line
-COOKIE_KEY: "/home/chaodai/rstudio-server/secure-cookie-key"
-PASSWORD_VARIABLE: 'MY_PASS' # environment variable that stores rstudio password
+COOKIE_KEY: "/scratch/midway2/chaodai/singularity/rstudio-tmp/secure-cookie-key"
+RSTUDIO_PASSWORD: 'password' 
+
