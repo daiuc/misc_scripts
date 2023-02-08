@@ -1,4 +1,4 @@
-#!env python
+#!/usr/bin/env python
 '''
 Generate sbatch_rstudio script based on a template
 
