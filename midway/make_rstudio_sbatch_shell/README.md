@@ -42,6 +42,8 @@ jupyter password # to generate a hashed password
 
 ## Configure R environment
 
+The docker image I pulled used R4.1.0, so for best compatibility, if you are using the same docker image, it's best to use R4.1.0 or R4.1.1.
+
 I have R binary here:
 ```
 /scratch/midway2/chaodai/miniconda3/envs/smk/bin/R
@@ -83,6 +85,8 @@ This tag below is my latest build. It adds FiraCode Nerd Fonts so that it's avai
 ```
 singularity pull bajiame/rstudio:rstudio_2022_12
 ```
+
+You can also pull other images from docker hub. I recommend rocker/rstudio or rocker/tidyverse. Because of singularity's limits root, I usually make any necessary changes in docker, commit the image to docker hub then pull in midway. You may also build from config files using singularity directly on midway. You need to be on login node for this step.
 
 ## Create config yaml and generate sbatch sh script
 
