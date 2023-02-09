@@ -21,7 +21,7 @@ cd ~ && source ~/.bash_profile && pwd >$log
 
 echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n" >> $log
 
-module load singularity/3.4.0 &>> $log
+module load singularity/3.9.2 &>> $log
 conda activate smk &>> $log
 
 
