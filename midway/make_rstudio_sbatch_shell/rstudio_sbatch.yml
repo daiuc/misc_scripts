@@ -1,6 +1,8 @@
+# midway2 or midway3
+WHICH_MIDWAY: "midway3"
 
 # SBATCH stuff
-CPU: 2
+CPU: 4
 MEM: "20g"
 PARTITION: "broadwl"
 JOBNAME: "rstudio"
@@ -24,7 +26,7 @@ SINGULARITY_VER: 'singularity/3.4.0'
 ## Export environment to container
 
 SINGULARITYENV_USER: 'chaodai' # your home user
-SINGULARITYENV_PATH: "/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin" # export your path
+SINGULARITYENV_PATH: "/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin:\\$PATH" # dobule \\ to escape \
 SINGULARITYENV_CACHEDIR: "/scratch/midway2/chaodai/singularity/singularity_cache"
 SINGULARITYENV_MODULES_CMD: "/software/modules/libexec/modulecmd.tcl" # optional
 SINGULARITYENV_MODULEPATH: "/software/modules/modulefiles:/software/modulefiles2" # optional
