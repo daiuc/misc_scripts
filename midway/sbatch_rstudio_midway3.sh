@@ -21,15 +21,14 @@ cd ~ && source ~/.bash_profile && pwd >$log
 
 echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n" >> $log
 
-module load singularity/3.9.2 &>> $log
+module load singularity/3.9.2 &>> $log # different from midway2
 conda activate smk &>> $log
 
 
 JPORT=9798 # configured in .jupyter/jupyter_server_config.py
 RPORT=8282 # for rstudio
-CPORT=8783 # configured in .config/code-server/config.yaml
 
-IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
+IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $(NF-2);exit}') # different from midway2
 echo -e "### DATE: $(date) ### \n" >> $log
 echo -e "### IP: ${IP}\n\n" >> $log
 
