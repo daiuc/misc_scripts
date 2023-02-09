@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/sh
 #SBATCH --time {{ TIME }}
 #SBATCH -p {{ PARTITION }}
 #SBATCH -c {{ CPU }}
@@ -13,7 +13,7 @@
 ##             General set up                          ##
 ##-----------------------------------------------------##
 
-
+WHICH_MIDWAY={{ WHICH_MIDWAY }}
 log={{ LOGFILE }}
 
 cd ~ && source ~/.bash_profile && pwd >$log
@@ -28,10 +28,18 @@ JPORT={{ JPORT }} # configured in .jupyter/jupyter_server_config.py
 RPORT={{ RPORT }} # for rstudio
 CPORT={{ CPORT }} # configured in .config/code-server/config.yaml
 
-IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
-echo -e "### DATE: $(date) ### \n" >> $log
-echo -e "### IP: ${IP}\n\n" >> $log
 
+if [[ $WHICH_MIDWAY == midway2 ]]; then
+    IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
+    echo -e "### DATE: $(date) ### \n" >> $log
+    echo -e "### IP: ${IP}\n\n" >> $log
+elif [[ $WHICH_MIDWAY == midway3 ]]; then
+    IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $(NF-2);exit}')
+    echo -e "### DATE: $(date) ### \n" >> $log
+    echo -e "### IP: ${IP}\n\n" >> $log
+else
+    echo -e "Can't determine if it's midway2 or midway3 \n" >> $log
+fi
 
 ##-----------------------------------------------------##
 ##             Launch jupyter notebook                 ##

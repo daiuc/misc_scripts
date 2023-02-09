@@ -42,6 +42,7 @@ with open(args.TEMP) as tplt:
     temp_contents = tplt.read()
     temp = Template(temp_contents)
     fill_template = temp.render(
+        WHICH_MIDWAY = CONFIG['WHICH_MIDWAY'],
         TIME = CONFIG['TIME'],
         PARTITION = CONFIG['PARTITION'],
         CPU = CONFIG['CPU'],

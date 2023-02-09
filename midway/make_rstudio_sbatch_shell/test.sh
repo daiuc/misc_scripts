@@ -1,7 +1,7 @@
-#!/bin/bash 
+#!/bin/sh
 #SBATCH --time 35:59:00
 #SBATCH -p broadwl
-#SBATCH -c 2
+#SBATCH -c 4
 #SBATCH --mem 20g
 #SBATCH --job-name=rstudio
 #SBATCH --account=pi-yangili1
@@ -13,7 +13,7 @@
 ##             General set up                          ##
 ##-----------------------------------------------------##
 
-
+WHICH_MIDWAY=midway3
 log=logs/sbatchLogRstudioContainer.log
 
 cd ~ && source ~/.bash_profile && pwd >$log
@@ -28,10 +28,18 @@ JPORT=9798 # configured in .jupyter/jupyter_server_config.py
 RPORT=8282 # for rstudio
 CPORT= # configured in .config/code-server/config.yaml
 
-IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
-echo -e "### DATE: $(date) ### \n" >> $log
-echo -e "### IP: ${IP}\n\n" >> $log
 
+if [[ $WHICH_MIDWAY == midway2 ]]; then
+    IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $NF;exit}')
+    echo -e "### DATE: $(date) ### \n" >> $log
+    echo -e "### IP: ${IP}\n\n" >> $log
+elif [[ $WHICH_MIDWAY == midway3 ]]; then
+    IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $(NF-2);exit}')
+    echo -e "### DATE: $(date) ### \n" >> $log
+    echo -e "### IP: ${IP}\n\n" >> $log
+else
+    echo -e "Can't determine if it's midway2 or midway3 \n" >> $log
+fi
 
 ##-----------------------------------------------------##
 ##             Launch jupyter notebook                 ##
@@ -75,7 +83,7 @@ PY_BIN=$CONDA_PREFIX/bin/python
 export SINGULARITYENV_USER=chaodai
 export SINGULARITYENV_RSTUDIO_WHICH_R=${R_BIN}
 export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
-export SINGULARITYENV_PATH=/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin
+export SINGULARITYENV_PATH=/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/smk/bin:\$PATH
 export SINGULARITYENV_CACHEDIR=/scratch/midway2/chaodai/singularity/singularity_cache
 export SINGULARITYENV_MODULES_CMD=/software/modules/libexec/modulecmd.tcl
 export SINGULARITYENV_MODULEPATH=/software/modules/modulefiles:/software/modulefiles2
