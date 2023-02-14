@@ -53,7 +53,7 @@ echo "rstudio server running on http://${IP}:${RPORT}" >> $log
 ## set SIF
 
 # from singularity pull docker://bajiame/rstudio:rstudio_2022_12
-SIF="/scratch/midway3/chaodai/singularity/rstudio_2022_12.sif" # R4.1.0 Rstudio 2022.12
+SIF="/scratch/midway3/chaodai/singularity/rstudio_r4.1.0-rstudio2022.12.sif" # R4.1.0 Rstudio 2022.12
 
 # Rstudio server dir
 RSTUDIO_TMP=/scratch/midway3/chaodai/singularity/rstudio-tmp
@@ -69,7 +69,8 @@ PY_BIN=$CONDA_PREFIX/bin/python
 export SINGULARITYENV_USER=chaodai
 export SINGULARITYENV_RSTUDIO_WHICH_R=${R_BIN}
 export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
-export SINGULARITYENV_PATH="/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway3/chaodai/miniconda3/envs/smk/bin:\$PATH"
+export SINGULARITYENV_PATH="/scratch/midway3/chaodai/miniconda3/envs/smk/bin:/software/singularity-3.9.2-el8-x86_64/bin:/home/chaodai/bin:/usr/local/bin:/scratch/midway3/chaodai/miniconda3/condabin:/home/chaodai/bin:/usr/local/bin:/software/bin:/software/slurm-current-el8-x86_64/bin:/software/modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/thinlinc/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:\$PATH"
+export SINGULARITYENV_LD_LIBRARY_PATH="/software/slurm-current-el8-x86_64/lib"
 export SINGULARITYENV_CACHEDIR="/scratch/midway3/chaodai/singularity/singularity_cache"
 export SINGULARITYENV_RSTUDIO_PASS=$RSTUDIO_PASS
 
