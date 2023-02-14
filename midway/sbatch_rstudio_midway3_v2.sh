@@ -92,7 +92,7 @@ PASSWORD=${RSTUDIO_PASS} singularity exec \
     --bind $RSTUDIO_TMP/rsession.conf:/etc/rstudio/rsession.conf \
     --bind $RSTUDIO_TMP/rserver.conf:/etc/rstudio/rserver.conf \
     --bind $RSTUDIO_TMP/logging.conf:/etc/rstudio/logging.conf \
-    --bind $RSTUDIO_TMP/file-locks:/etc/rstudio/filel-locks \
+    --bind $RSTUDIO_TMP/file-locks:/etc/rstudio/file-locks \
     --bind /sys/fs/cgroup/:/sys/fs/cgroup/:ro \
     --bind /home/chaodai,/scratch/midway3/chaodai \
     --bind $PROJECTS \
