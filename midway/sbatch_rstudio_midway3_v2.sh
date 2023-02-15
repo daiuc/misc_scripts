@@ -1,11 +1,11 @@
 #!/bin/bash 
 #SBATCH --time 35:59:00
 #SBATCH -p caslake
-#SBATCH -c 4
+#SBATCH -c 2
 #SBATCH --mem 30g
 #SBATCH --job-name=rstudio
-##SBATCH --account=pi-yangili1
-#SBATCH --account=pi-jstaley
+#SBATCH --account=pi-yangili1
+##SBATCH --account=pi-jstaley
 #SBATCH --output=logs/sbatchLogRstudioContainer.log
 
 
