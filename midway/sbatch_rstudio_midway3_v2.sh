@@ -1,7 +1,7 @@
 #!/bin/bash 
 #SBATCH --time 35:59:00
 #SBATCH -p caslake
-#SBATCH -c 2
+#SBATCH -c 6
 #SBATCH --mem 30g
 #SBATCH --job-name=rstudio
 #SBATCH --account=pi-yangili1
@@ -94,7 +94,7 @@ PASSWORD=${RSTUDIO_PASS} singularity exec \
     --bind $RSTUDIO_TMP/logging.conf:/etc/rstudio/logging.conf \
     --bind $RSTUDIO_TMP/file-locks:/etc/rstudio/file-locks \
     --bind /sys/fs/cgroup/:/sys/fs/cgroup/:ro \
-    --bind /home/chaodai,/scratch/midway3/chaodai \
+    --bind /home/chaodai,/scratch/midway3/chaodai,/software \
     --bind $PROJECTS \
     $SIF \
     rserver --server-user $RSTUDIO_SERVER_USER \
