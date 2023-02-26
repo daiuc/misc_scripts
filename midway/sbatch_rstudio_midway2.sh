@@ -100,7 +100,7 @@ PASSWORD=${RSTUDIO_PASS} singularity exec \
     --bind $RSTUDIO_TMP/file-locks:/etc/rstudio/file-locks \
     --bind /sys/fs/cgroup/:/sys/fs/cgroup/:ro \
     --bind /home/chaodai:/home/rstudio \
-    --bind /project2,/scratch/midway2/chaodai,/software \
+    --bind /project2,/scratch/midway2/chaodai,/software,/usr/bin/tclsh \
     $SIF \
     rserver --server-user $RSTUDIO_SERVER_USER \
         --rsession-which-r=${R_BIN} \
