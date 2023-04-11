@@ -60,8 +60,8 @@ echo -e "\n\n### 2.  Rstudio ###"
 echo "rstudio server running on http://${IP}:${RPORT}" 
 
 ## set SIF
-#SIF="/scratch/midway2/chaodai/singularity/rstudio_r4.2.2-rstudio2022.12.0-v1.sif"
-SIF="/scratch/midway2/chaodai/singularity/bajiame_rstudio_rstudio_2022_12.sif"
+#SIF="/scratch/midway2/chaodai/singularity/bajiame_rstudio_rstudio_2022_12.sif"
+SIF="/scratch/midway2/chaodai/singularity/rstudio-2023_03.sif"
 RSTUDIO_TMP=/scratch/midway2/chaodai//singularity/rstudio-tmp
 
 echo "using image $SIF" >> showRstudioAddress.txt
