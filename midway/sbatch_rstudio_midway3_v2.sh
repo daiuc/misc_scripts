@@ -50,7 +50,9 @@ echo "rstudio server running on http://${IP}:${RPORT}"
 ## set SIF
 
 # note since i'm using R_BIN from conda, the r version in the container is irrelevant
-SIF="/scratch/midway3/chaodai/singularity/rstudio_r4.2.2-rstudio2022.12.0-v1.sif" # R4.1.0 Rstudio 2022.12
+#SIF="/scratch/midway3/chaodai/singularity/rstudio_r4.2.2-rstudio2022.12.0-v1.sif" # R4.1.0 Rstudio 2022.12
+SIF="/scratch/midway3/chaodai/singularity/rstudio_rstudio-2023_03.sif" # R4.1.0 Rstudio 2023.03.386
+
 
 # Rstudio server dir
 RSTUDIO_TMP=/scratch/midway3/chaodai/singularity/rstudio-tmp
