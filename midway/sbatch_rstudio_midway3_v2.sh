@@ -22,8 +22,8 @@ echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n"
 module load singularity/3.9.2
 conda activate smk
 
-JPORT=9798 # configured in .jupyter/jupyter_server_config.py
-RPORT=8282 # for rstudio
+JPORT=9799 # configured in .jupyter/jupyter_server_config.py
+RPORT=8283 # for rstudio
 
 IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $(NF-2);exit}') # different from midway2
 echo -e "### DATE: $(date) ### \n"
