@@ -1,43 +1,23 @@
 #!/bin/bash 
-#SBATCH --time 35:59:00
-#SBATCH -p caslake
-#SBATCH -c 6
-#SBATCH --mem 30g
-#SBATCH --job-name=rstudio
-#SBATCH --account=pi-yangili1
-##SBATCH --account=pi-jstaley
-#SBATCH --output=logs/sbatchLogRstudioContainer.log
 
 
 
 ##-----------------------------------------------------##
-##             General set up                          ##
+##             Set up rstudio server on login          ##
 ##-----------------------------------------------------##
 
 
 cd ~ && source ~/.bash_profile && pwd 
 
-echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n" 
 
 module load singularity/3.9.2
 conda activate smk
 
-JPORT=9799 # configured in .jupyter/jupyter_server_config.py
-RPORT=8283 # for rstudio
+RPORT=8755 # for rstudio
 
 IP=$(/sbin/ip route get 8.8.8.8 | awk '{print $(NF-2);exit}') # different from midway2
 echo -e "### DATE: $(date) ### \n"
 echo -e "### IP: ${IP}\n\n"
-
-
-##-----------------------------------------------------##
-##             Launch jupyter notebook                 ##
-##-----------------------------------------------------##
-
-echo -e "\n\n### 1.  Jupyter ###"
-echo -e "jupyter server runing on http://${IP}:${JPORT}/lab \n" 
-
-jupyter lab --port=$JPORT &
 
 
 
@@ -49,16 +29,13 @@ echo "rstudio server running on http://${IP}:${RPORT}"
 
 ## set SIF
 
-# note since i'm using R_BIN from conda, the r version in the container is irrelevant
-#SIF="/scratch/midway3/chaodai/singularity/rstudio_r4.2.2-rstudio2022.12.0-v1.sif" # R4.1.0 Rstudio 2022.12
 SIF="/scratch/midway3/chaodai/singularity/rstudio_rstudio-2023_06.sif" # R4.1.0 Rstudio 2023.06
 
 
 # Rstudio server dir
-RSTUDIO_TMP=/scratch/midway3/chaodai/singularity/rstudio-tmp
-COOKIE_ID=/home/chaodai/rstudio-server/secure-cookie-key
+RSTUDIO_TMP=/scratch/midway3/chaodai/singularity/rstudio-tmp-login-node
+COOKIE_ID=/home/chaodai/rstudio-server/secure-cookie-key-login-node
 
-echo "using image $SIF" >> showRstudioAddress.txt
 echo -e "---------------\n\n\n"
 # set conda, R, python binary
 CONDA_PREFIX=/scratch/midway3/chaodai/miniconda3/envs/smk
@@ -70,12 +47,10 @@ export SINGULARITYENV_USER=chaodai
 export SINGULARITYENV_RSTUDIO_WHICH_R=${R_BIN}
 export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
 export SINGULARITYENV_PATH="/software/singularity-3.9.2-el8-x86_64/bin:/scratch/midway3/chaodai/miniconda3/envs/smk/bin:/home/chaodai/bin:/usr/local/bin:/scratch/midway3/chaodai/miniconda3/condabin:/software/bin:/software/slurm-current-el8-x86_64/bin:/software/modules/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/thinlinc/bin:\$PATH"
-#export SINGULARITYENV_LD_LIBRARY_PATH="/software/slurm-current-el8-x86_64/lib"
 export SINGULARITYENV_CACHEDIR="/scratch/midway3/chaodai/singularity/singularity_cache"
 export SINGULARITYENV_RSTUDIO_PASS=$RSTUDIO_PASS
 
 RSTUDIO_SERVER_USER=chaodai # change to your own
-
 
 ## Bind project folder, note the if statement is to deal with RCC's mounting problem
 if [[ -d "/project2" ]]; then
@@ -84,8 +59,6 @@ else
     PROJECTS="/project"
 fi
 
-## run container app
-sleep 5 
 # make sure RSTUDIO_PASS is exported in your bash profile
 PASSWORD=${RSTUDIO_PASS} singularity exec \
     --bind $RSTUDIO_TMP/var/lib:/var/lib/rstudio-server \
