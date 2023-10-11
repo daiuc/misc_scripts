@@ -20,7 +20,7 @@ cd ~ && source ~/.bash_profile && pwd
 
 echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n" 
 
-module load singularity/3.4.0 gcc/10.1.0
+module load singularity/3.4.0 #gcc/10.1.0
 conda activate sos
 
 
@@ -60,8 +60,7 @@ echo -e "\n\n### 2.  Rstudio ###"
 echo "rstudio server running on http://${IP}:${RPORT}" 
 
 ## set SIF
-# SIF="/scratch/midway2/chaodai/singularity/rstudio-2023_06.sif"
-SIF="/scratch/midway2/chaodai/singularity/rstudio-2023_10.sif"
+SIF="/scratch/midway2/chaodai/singularity/rstudio_rstudio-2023_10.sif"
 RSTUDIO_TMP=/scratch/midway2/chaodai//singularity/rstudio-tmp
 
 echo "using image $SIF" >> showRstudioAddress.txt
@@ -76,11 +75,12 @@ export SINGULARITYENV_USER=chaodai
 export SINGULARITYENV_RSTUDIO_WHICH_R=${R_BIN}
 export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
 #export SINGULARITYENV_PATH="/scratch/midway2/chaodai/miniconda3/envs/sos/bin:/scratch/midway2/chaodai/miniconda3/condabin:/software/gsl-2.5-el7-x86_64/bin:/software/tmux-3.1c-el7-x86_64/bin:/software/libevent-2.1.8-el7-x86_64/bin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/software/slurm-current-el7-x86_64/bin:/software/git-2.10-el7-x86_64/bin:/software/subversion-1.9.4-el7-x86_64/bin:/software/bin:/srv/adm/bin:/software/modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/ibutils/bin:/usr/lpp/mmfs/bin:/software/systools/bin:\$PATH"
-export SINGULARITYENV_PATH="/opt/pyenv/plugins/pyenv-virtualenv/shims:/home/chaodai/.pyenv/shims:/opt/pyenv/bin:/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/sos/bin:\$PATH"
+export SINGULARITYENV_PATH="/home/chaodai/.local/bin:/usr/lib/rstudio-server/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/chaodai/bin:/home/chaodai/.local/bin:/scratch/midway2/chaodai/miniconda3/envs/sos/bin:\$PATH"
+export SINGULARITYENV_LD_LIBRARY_PATH="/scratch/midway2/chaodai/miniconda3/envs/sos/lib:$LD_LIBRARY_PATH"
 export SINGULARITYENV_CACHEDIR="/scratch/midway2/chaodai/singularity/singularity_cache"
 export SINGULARITYENV_RSTUDIO_PASS=$RSTUDIO_PASS
-export SINGULARITYENV_MODULES_CMD=/software/modules/libexec/modulecmd.tcl
-export SINGULARITYENV_MODULEPATH=/software/modules/modulefiles:/software/modulefiles2
+#export SINGULARITYENV_MODULES_CMD=/software/modules/libexec/modulecmd.tcl
+#export SINGULARITYENV_MODULEPATH=/software/modules/modulefiles:/software/modulefiles2
 
 
 RSTUDIO_SERVER_USER=chaodai # change to your own
