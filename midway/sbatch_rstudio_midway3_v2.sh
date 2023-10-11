@@ -20,7 +20,7 @@ cd ~ && source ~/.bash_profile && pwd
 echo -e "\n Submited job: $SLURM_JOB_ID\n\n\n" 
 
 module load singularity/3.9.2
-conda activate smk
+conda activate sos
 
 JPORT=9799 # configured in .jupyter/jupyter_server_config.py
 RPORT=8283 # for rstudio
@@ -51,7 +51,8 @@ echo "rstudio server running on http://${IP}:${RPORT}"
 
 # note since i'm using R_BIN from conda, the r version in the container is irrelevant
 #SIF="/scratch/midway3/chaodai/singularity/rstudio_r4.2.2-rstudio2022.12.0-v1.sif" # R4.1.0 Rstudio 2022.12
-SIF="/scratch/midway3/chaodai/singularity/rstudio_rstudio-2023_06.sif" # R4.1.0 Rstudio 2023.06
+#SIF="/scratch/midway3/chaodai/singularity/rstudio_rstudio-2023_06.sif" # R4.1.0 Rstudio 2023.06
+SIF="/scratch/midway3/chaodai/singularity/rstudio_rstudio-2023_10.sif" # from rocker/rstudio:4.3.0 with added apps (vim, less, zip, curl, get, FiraCode in rstudio)
 
 
 # Rstudio server dir
@@ -61,15 +62,16 @@ COOKIE_ID=/home/chaodai/rstudio-server/secure-cookie-key
 echo "using image $SIF" >> showRstudioAddress.txt
 echo -e "---------------\n\n\n"
 # set conda, R, python binary
-CONDA_PREFIX=/scratch/midway3/chaodai/miniconda3/envs/smk
+CONDA_PREFIX=/scratch/midway3/chaodai/miniconda3/envs/sos
 R_BIN=$CONDA_PREFIX/bin/R
 PY_BIN=$CONDA_PREFIX/bin/python
 
 ## export conda environment to container
 export SINGULARITYENV_USER=chaodai
 export SINGULARITYENV_RSTUDIO_WHICH_R=${R_BIN}
+export SINGULARITYENV_RSTUDIO_WHICH_R_VERSION=4.3.1
 export SINGULARITYENV_CONDA_PREFIX=${CONDA_PREFIX}
-export SINGULARITYENV_PATH="/software/singularity-3.9.2-el8-x86_64/bin:/scratch/midway3/chaodai/miniconda3/envs/smk/bin:/home/chaodai/bin:/usr/local/bin:/scratch/midway3/chaodai/miniconda3/condabin:/software/bin:/software/slurm-current-el8-x86_64/bin:/software/modules/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/thinlinc/bin:\$PATH"
+export SINGULARITYENV_PATH="/software/singularity-3.9.2-el8-x86_64/bin:/scratch/midway3/chaodai/miniconda3/envs/sos/bin:/home/chaodai/bin:/usr/local/bin:/scratch/midway3/chaodai/miniconda3/condabin:/software/bin:/software/slurm-current-el8-x86_64/bin:/software/modules/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/thinlinc/bin:\$PATH"
 #export SINGULARITYENV_LD_LIBRARY_PATH="/software/slurm-current-el8-x86_64/lib"
 export SINGULARITYENV_CACHEDIR="/scratch/midway3/chaodai/singularity/singularity_cache"
 export SINGULARITYENV_RSTUDIO_PASS=$RSTUDIO_PASS
