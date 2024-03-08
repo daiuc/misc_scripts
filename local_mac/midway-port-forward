@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#ssh -NL ${port}:${ip}:${port} chaodai@${login}.rcc.uchicago.edu
+
+# Check the number of arguments passed
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 <compute_node_ip> <port> <login_node>"
+  echo "  - compute_node_ip: IP address of the compute node"
+  echo "  - port           : Port number to forward"
+  echo "  - login_node     : Login node (midway2 or midway3)"
+  exit 1
+fi
+
+# Extract arguments
+ip="$1"
+port="$2"
+login="$3"
+
+# Validate login node input
+if [[ !("$login" =~ ^(midway2|midway3)$) ]]; then
+  echo "Error: Invalid login node. Please enter 'midway2' or 'midway3'."
+  read -p "Continue with default login node 'midway3' (y/N)? " answer
+  case "$answer" in
+    [Yy]*)
+      login="midway3" ;;
+    *)
+      exit 1 ;;
+  esac
+fi
+
+# Display command and prompt for confirmation
+echo "Portforward:"
+echo "ssh -NL ${port}:${ip}:${port} chaodai@${login}.rcc.uchicago.edu"
+
+ssh -NL ${port}:${ip}:${port} chaodai@${login}.rcc.uchicago.edu
