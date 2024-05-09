@@ -77,7 +77,6 @@ multiqq <- function(pvalues) {
             intercept = 0,
             slope = 1
         ) +
-        theme_bw(base_size = 18) +
         xlab("Expected -log10(p)") +
         ylab("Observed -log10(p)")
 }
