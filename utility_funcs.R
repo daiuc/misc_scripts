@@ -57,7 +57,30 @@ concatLabels <- function(data, byCol, oldLabel, newLabel) {
 
 
 
-
+multiqq <- function(pvalues) {
+    punif <- -log10(runif(max(sapply(pvalues, length))))
+    df <- do.call(rbind, foreach(i = seq_len(length(pvalues))) %do% {
+        df <- as.data.frame(
+            qqplot(
+                x = punif[1:length(pvalues[[i]])],
+                y = -log10(pvalues[[i]]),
+                plot.it = FALSE
+            )
+        )
+        df$group <- names(pvalues)[i]
+        df
+    })
+    df$group <- factor(df$group, names(pvalues))
+    ggplot(df, aes(x, y, col = group)) +
+        geom_point() +
+        geom_abline(
+            intercept = 0,
+            slope = 1
+        ) +
+        theme_bw(base_size = 18) +
+        xlab("Expected -log10(p)") +
+        ylab("Observed -log10(p)")
+}
 
 
 
