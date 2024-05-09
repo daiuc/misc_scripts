@@ -2,7 +2,7 @@
 #SBATCH --time 35:59:00
 #SBATCH -p caslake
 #SBATCH -c 6
-#SBATCH --mem 30g
+#SBATCH --mem 40g
 #SBATCH --job-name=rstudio
 #SBATCH --account=pi-yangili1
 ##SBATCH --account=pi-jstaley
