@@ -37,7 +37,7 @@ echo -e "### IP: ${IP}\n\n"
 echo -e "\n\n### 1.  Jupyter ###"
 echo -e "jupyter server runing on http://${IP}:${JPORT}/lab \n" 
 
-jupyter lab --port=$JPORT &
+jupyter lab --port=$JPORT --ip=${IP} &
 
 
 
